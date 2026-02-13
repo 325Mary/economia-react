@@ -1,8 +1,33 @@
 import { Card, CardContent } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Factory, Building, ShoppingBag, HomeIcon, ChevronRight } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function SectoresPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Obtener el hash de la URL (sin el #) o usar 'industria' por defecto
+  const getTabFromHash = () => {
+    const hash = location.hash.replace('#', '');
+    return hash || 'industria';
+  };
+
+  const [activeTab, setActiveTab] = useState(getTabFromHash());
+
+  // Sincronizar el tab activo cuando cambia el hash
+  useEffect(() => {
+    const newTab = getTabFromHash();
+    setActiveTab(newTab);
+  }, [location.hash]);
+
+  // Actualizar la URL cuando cambia el tab
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    navigate(`/sectores#${value}`, { replace: true });
+  };
+
   const sectores = [
     {
       id: 'industria',
@@ -50,7 +75,7 @@ export default function SectoresPage() {
 
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Tabs defaultValue="industria" className="w-full">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
             <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
               {sectores.map((sector) => (
                 <TabsTrigger key={sector.id} value={sector.id} className="flex items-center gap-2">

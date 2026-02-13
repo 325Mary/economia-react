@@ -5,8 +5,14 @@ import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { MapPin, Phone, Mail, Clock, ChevronRight } from 'lucide-react';
+import MapaContacto from '../components/MapaContacto';
 
 export default function ContactoPage() {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert('Mensaje enviado correctamente. Te contactaremos pronto.');
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <section className="bg-gradient-to-r from-teal-600 to-teal-700 text-white py-12">
@@ -114,7 +120,7 @@ export default function ContactoPage() {
               <Card>
                 <CardContent className="p-8">
                   <h2 className="text-2xl mb-6 text-gray-900">Envíanos un Mensaje</h2>
-                  <form className="space-y-6">
+                  <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="nombre">Nombre Completo *</Label>
@@ -133,7 +139,7 @@ export default function ContactoPage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="asunto">Asunto *</Label>
-                        <Select>
+                        <Select required>
                           <SelectTrigger id="asunto">
                             <SelectValue placeholder="Selecciona un asunto" />
                           </SelectTrigger>
@@ -182,13 +188,11 @@ export default function ContactoPage() {
                 </CardContent>
               </Card>
 
-              {/* Mapa (simulado) */}
+              {/* Mapa interactivo */}
               <Card className="mt-6">
                 <CardContent className="p-0">
-                  <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                    <div className="w-full h-full flex items-center justify-center text-gray-500">
-                      🗺️ Mapa interactivo - Ubicación AMVA
-                    </div>
+                  <div className="aspect-video rounded-lg overflow-hidden">
+                    <MapaContacto />
                   </div>
                 </CardContent>
               </Card>
