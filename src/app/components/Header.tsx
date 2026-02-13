@@ -37,6 +37,7 @@ export default function Header() {
         { label: 'Eficiencia Energética', path: '/acompanamientos#energia' },
         { label: 'Gestión Hídrica', path: '/acompanamientos#hidrica' },
         { label: 'Construcción Sostenible', path: '/acompanamientos#construccion' },
+        { label: 'Atención a Usuarios', path: '/acompanamientos#atencion' },
       ],
     },
     {
